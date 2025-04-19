@@ -17,7 +17,7 @@ steps:
     args:
       - '-c'
       - |
-        gcloud pubsub topics publish "builds.crewai" --message "discord-bot"
+        gcloud pubsub topics publish "build.crewai" --message "discord-bot"
 
 
 substitutions:
