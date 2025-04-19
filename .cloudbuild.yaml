@@ -1,0 +1,27 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - build
+      - -t
+      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/docker-repo/${_FUNCTION_NAME}:latest'
+      - .
+
+  # Push the Docker image.
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - push
+      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/docker-repo/${_FUNCTION_NAME}:latest'
+
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        gcloud pubsub topics publish "builds.crewai" --message "discord-bot"
+
+
+substitutions:
+  _FUNCTION_NAME: "crewai-studio"
+  _REGION: "europe-west4"
+
+logsBucket: gs://i3oot-build-logs
