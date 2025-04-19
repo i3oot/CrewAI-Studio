@@ -9,7 +9,7 @@ langchain-ollama
 streamlit
 python-dotenv
 pdfminer.six
-SQLAlchemy==2.0.25
+sqlalchemy
 psycopg2-binary
 snowflake-connector-python
 markdown
